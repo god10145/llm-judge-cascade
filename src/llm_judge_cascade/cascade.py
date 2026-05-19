@@ -3,9 +3,8 @@
 The cascade pattern keeps cost down: a cheap model handles obviously sound
 or obviously broken cases by itself, and only the genuinely ambiguous
 records pay for a more expensive judge. ``make_default_cascade()`` ships a
-Haiku → Sonnet → Opus preset that matches the Chimera homelab's LiteLLM
-config; callers can build their own ordering with ``CascadeTier`` instances
-for other providers.
+Haiku → Sonnet → Opus preset; callers can build their own ordering with
+``CascadeTier`` instances for other providers.
 """
 from __future__ import annotations
 
