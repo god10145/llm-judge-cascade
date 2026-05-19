@@ -10,11 +10,11 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 
-class JudgeVerdict(str, Enum):
+class JudgeVerdict(StrEnum):
     """Top-level classification a judge can assign to an agent response."""
 
     SOUND = "SOUND"
@@ -23,7 +23,7 @@ class JudgeVerdict(str, Enum):
     UNCERTAIN = "UNCERTAIN"
 
     @classmethod
-    def coerce(cls, raw: Any) -> "JudgeVerdict":
+    def coerce(cls, raw: Any) -> JudgeVerdict:
         """Map a string (case-insensitive) to a verdict; unknown → UNCERTAIN."""
         if isinstance(raw, cls):
             return raw

@@ -11,8 +11,8 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 try:
     from tqdm import tqdm
@@ -34,13 +34,12 @@ from llm_judge_cascade.dataset import (
 )
 from llm_judge_cascade.judges import DEFAULT_JUDGE_PROMPT_GENERIC
 
-
 # ─── cascade resolution ────────────────────────────────────────────────────
 
 CascadeFactory = "callable[[JudgeClientConfig], Cascade]"
 
 
-def _single_model_cascade(model: str) -> "CascadeFactory":
+def _single_model_cascade(model: str) -> CascadeFactory:
     def factory(config: JudgeClientConfig) -> Cascade:
         return Cascade(
             tiers=[
@@ -58,7 +57,7 @@ def _single_model_cascade(model: str) -> "CascadeFactory":
     return factory
 
 
-def _panel_cascade(models: list[str]) -> "CascadeFactory":
+def _panel_cascade(models: list[str]) -> CascadeFactory:
     """Force every tier to run by demanding impossible-to-meet confidence."""
     def factory(config: JudgeClientConfig) -> Cascade:
         return Cascade(
@@ -78,7 +77,7 @@ def _panel_cascade(models: list[str]) -> "CascadeFactory":
     return factory
 
 
-def _resolve_cascade(spec: str) -> "CascadeFactory":
+def _resolve_cascade(spec: str) -> CascadeFactory:
     spec = spec.strip()
     if spec == "haiku-sonnet-opus":
         return make_default_cascade

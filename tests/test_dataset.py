@@ -15,7 +15,6 @@ from llm_judge_cascade.dataset import (
 )
 from llm_judge_cascade.judges import JudgeResult, JudgeVerdict
 
-
 FIXTURE = Path(__file__).parent / "fixtures" / "synthetic_decisions.jsonl"
 
 
