@@ -3,6 +3,11 @@ from __future__ import annotations
 
 __version__ = "0.1.0"
 
+from llm_judge_cascade.client import (
+    ChatCompletionResult,
+    JudgeClientConfig,
+    chat_completion,
+)
 from llm_judge_cascade.judges import (
     DEFAULT_JUDGE_PROMPT_FABRICATION_DETECTION,
     DEFAULT_JUDGE_PROMPT_GENERIC,
@@ -15,11 +20,14 @@ from llm_judge_cascade.judges import (
 
 __all__ = [
     "__version__",
+    "ChatCompletionResult",
     "DEFAULT_JUDGE_PROMPT_FABRICATION_DETECTION",
     "DEFAULT_JUDGE_PROMPT_GENERIC",
     "DEFAULT_JUDGE_PROMPT_REASONING_QUALITY",
+    "JudgeClientConfig",
     "JudgeResult",
     "JudgeVerdict",
     "build_judge_messages",
+    "chat_completion",
     "parse_judge_response",
 ]
