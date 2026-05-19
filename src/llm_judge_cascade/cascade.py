@@ -17,6 +17,7 @@ from llm_judge_cascade.client import (
     JudgeClientConfig,
     chat_completion,
 )
+from llm_judge_cascade.cost import estimate_cost_from_chars
 from llm_judge_cascade.judges import (
     DEFAULT_JUDGE_PROMPT_GENERIC,
     JudgeResult,
@@ -37,8 +38,8 @@ CostEstimatorFn = Callable[[str, int, int], float]
 """(model, input_chars, output_chars) -> usd. Replaced by cost.py in commit 5."""
 
 
-def _zero_cost(_model: str, _in_chars: int, _out_chars: int) -> float:
-    return 0.0
+def _default_cost(model: str, in_chars: int, out_chars: int) -> float:
+    return estimate_cost_from_chars(model, in_chars, out_chars)
 
 
 # ─── public dataclasses ────────────────────────────────────────────────────
@@ -101,7 +102,7 @@ class Cascade:
         self.tiers = list(tiers)
         self.config = config
         self._chat_fn = chat_fn if chat_fn is not None else chat_completion
-        self._cost_fn = cost_fn if cost_fn is not None else _zero_cost
+        self._cost_fn = cost_fn if cost_fn is not None else _default_cost
 
     def judge(
         self,
