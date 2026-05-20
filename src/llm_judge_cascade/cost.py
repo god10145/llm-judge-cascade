@@ -20,6 +20,8 @@ MODEL_PRICING: dict[str, tuple[float, float]] = {
     "anthropic/claude-sonnet-4-6": (3.00, 15.00),
     "anthropic/claude-opus-4-7": (15.00, 75.00),
     "gemini/gemini-3.1-pro-preview": (1.25, 5.00),
+    "gemini/gemini-3.5-flash": (0.075, 0.30),
+    "minimax/MiniMax-M2.7": (0.30, 1.20),
 }
 
 
