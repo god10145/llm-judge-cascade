@@ -8,8 +8,8 @@ Haiku → Sonnet → Opus preset; callers can build their own ordering with
 """
 from __future__ import annotations
 
-from collections.abc import Callable
 from dataclasses import dataclass, field
+from typing import Callable
 
 from llm_judge_cascade.client import (
     ChatCompletionResult,

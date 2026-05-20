@@ -4,10 +4,9 @@ from __future__ import annotations
 import json
 import sys
 import warnings
-from collections.abc import Iterable, Iterator
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Iterable, Iterator
 
 if TYPE_CHECKING:
     from llm_judge_cascade.cascade import CascadeRunResult
@@ -23,7 +22,7 @@ class DecisionRecord:
     metadata: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
-    def from_dict(cls, raw: dict[str, Any]) -> DecisionRecord:
+    def from_dict(cls, raw: dict[str, Any]) -> "DecisionRecord":
         if "prompt" not in raw or "response" not in raw:
             raise ValueError("DecisionRecord requires 'prompt' and 'response' fields")
         record_id = str(raw.get("id") or "")
@@ -88,7 +87,7 @@ def load_decisions(path: Path | str) -> Iterator[DecisionRecord]:
                 )
 
 
-def _judgments_block(run_result: CascadeRunResult) -> dict[str, Any]:
+def _judgments_block(run_result: "CascadeRunResult") -> dict[str, Any]:
     return {
         "final_verdict": run_result.final_verdict.value,
         "final_confidence": run_result.final_confidence,
@@ -101,7 +100,7 @@ def _judgments_block(run_result: CascadeRunResult) -> dict[str, Any]:
 
 def save_decisions_with_judgments(
     path: Path | str,
-    records: Iterable[tuple[DecisionRecord, CascadeRunResult]],
+    records: Iterable[tuple[DecisionRecord, "CascadeRunResult"]],
 ) -> int:
     """Write augmented JSONL where each line carries the original record + judgments.
 
